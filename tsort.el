@@ -8,6 +8,7 @@
 ;; Keywords: algorithm, tools
 ;; Package-Requires: ((emacs "25.1"))
 ;; Version: 1.0.0
+;; License: MIT
 
 ;; This file is not part of GNU Emacs.
 
@@ -36,18 +37,6 @@
   "Return return the first vertex in G that has a degree of nil (zero)."
   (car (seq-filter (lambda (pair) (equal (cadr pair) nil)) G)))
 
-(defun tsort-impl (graph seen)
-  "Recursive implementation of topological sort using Kahn's algorithm.
-
-GRAPH is a collection of vertices and their edges and SEEN is the
-eventual ordering of elements."
-
-  (let ((vertex (tsort--find-degree-zero-vertex graph)))
-    (if vertex
-        (tsort-impl (tsort--rm-vertex-from-graph vertex graph)
-                    (cons (car vertex) seen))
-      seen)))
-
 (defun tsort (G)
   "Perform a topological sort on the graph G.
 
@@ -65,6 +54,18 @@ This graph is read to mean that A depends upon B and C, B depends upon D,
 C depends upon D, and D depends upon nothing.
 
 This graph will turn into the following topological sort: (D B C A)"
+
+  (defun tsort-impl (graph seen)
+    "Recursive implementation of topological sort using Kahn's algorithm.
+
+GRAPH is a collection of vertices and their edges and SEEN is the
+eventual ordering of elements."
+
+    (let ((vertex (tsort--find-degree-zero-vertex graph)))
+      (if vertex
+          (tsort-impl (tsort--rm-vertex-from-graph vertex graph)
+                      (cons (car vertex) seen))
+        seen)))
 
   (let ((res (tsort-impl G '())))
     (if (eql (length G) (length res))

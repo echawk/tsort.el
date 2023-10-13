@@ -25,7 +25,8 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'seq))
+  (require 'seq)
+  (require 'subr-x))
 
 (defun tsort--rm-vertex-from-graph (v G)
   "Remove vertex V from graph G including all edges which contain vertex V."

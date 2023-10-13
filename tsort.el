@@ -55,7 +55,7 @@ Example of a graph:
 This graph is read to mean that A depends upon B and C, B depends upon D,
 C depends upon D, and D depends upon nothing.
 
-This graph will turn into the following topological sort: (D B C A)"
+This graph will turn into the following topological sort: '(D B C A)"
 
   (let ((res
          (named-let tsort-impl ((graph G) (seen '()))

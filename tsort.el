@@ -1,4 +1,4 @@
-;;; tsort.el --- Topological sort for Emacs Lisp
+;;; tsort.el --- Topological sort for Emacs Lisp -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2023 Ethan Hawk
 
@@ -37,6 +37,8 @@
   "Return return the first vertex in G that has a degree of nil (zero)."
   (car (seq-filter (lambda (pair) (equal (cadr pair) nil)) G)))
 
+
+;;;###autoload
 (defun tsort (G)
   "Perform a topological sort on the graph G.
 
@@ -55,19 +57,18 @@ C depends upon D, and D depends upon nothing.
 
 This graph will turn into the following topological sort: (D B C A)"
 
-  (defun tsort-impl (graph seen)
-    "Recursive implementation of topological sort using Kahn's algorithm.
+  (let ((res
+         (named-let tsort-impl ((graph G) (seen '()))
+           "Recursive implementation of topological sort using Kahn's algorithm.
 
 GRAPH is a collection of vertices and their edges and SEEN is the
 eventual ordering of elements."
 
-    (let ((vertex (tsort--find-degree-zero-vertex graph)))
-      (if vertex
-          (tsort-impl (tsort--rm-vertex-from-graph vertex graph)
-                      (cons (car vertex) seen))
-        seen)))
-
-  (let ((res (tsort-impl G '())))
+           (let ((vertex (tsort--find-degree-zero-vertex graph)))
+             (if vertex
+                 (tsort-impl (tsort--rm-vertex-from-graph vertex graph)
+                             (cons (car vertex) seen))
+               seen)))))
     (if (eql (length G) (length res))
         (reverse res))))
 

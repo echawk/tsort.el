@@ -29,12 +29,14 @@
 
 (defun tsort--rm-vertex-from-graph (v G)
   "Remove vertex V from graph G including all edges which contain vertex V."
+  (declare (pure t) (side-effect-free t))
   (mapcar
    (lambda (pair) (list (car pair) (remove (car v) (cadr pair))))
    (remove v G)))
 
 (defun tsort--find-degree-zero-vertex (G)
   "Return return the first vertex in G that has a degree of nil (zero)."
+  (declare (pure t) (side-effect-free t))
   (car (seq-filter (lambda (pair) (equal (cadr pair) nil)) G)))
 
 
@@ -56,7 +58,7 @@ This graph is read to mean that A depends upon B and C, B depends upon D,
 C depends upon D, and D depends upon nothing.
 
 This graph will turn into the following topological sort: '(D B C A)"
-
+  (declare (pure t) (side-effect-free t))
   (let ((res
          (named-let tsort-impl ((graph G) (seen '()))
            "Recursive implementation of topological sort using Kahn's algorithm.

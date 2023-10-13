@@ -6,7 +6,7 @@
 ;; Maintainer: Ethan Hawk <ethan.hawk@valpo.edu>
 ;; URL: https://github.com/ehawkvu/tsort.el
 ;; Keywords: algorithm, tools
-;; Package-Requires: ((emacs "25.1"))
+;; Package-Requires: ((emacs "28.1"))
 ;; Version: 1.0.0
 ;; License: MIT
 

@@ -50,7 +50,7 @@ or will return nil in the case of a cycle.
 
 Example of a graph:
 
-'((A (B C))
+\\='((A (B C))
   (B (D))
   (C (D))
   (D nil))
@@ -58,7 +58,7 @@ Example of a graph:
 This graph is read to mean that A depends upon B and C, B depends upon D,
 C depends upon D, and D depends upon nothing.
 
-This graph will turn into the following topological sort: '(D B C A)"
+This graph will turn into the following topological sort: \\='(D B C A)"
   (declare (pure t) (side-effect-free t))
   (let ((res
          (named-let tsort-impl ((graph G) (seen '()))

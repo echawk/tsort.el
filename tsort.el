@@ -1,6 +1,7 @@
 ;;; tsort.el --- Topological sort for Emacs Lisp -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2023 Ethan Hawk
+;; SPDX-License-Identifier: MIT
 
 ;; Author: Ethan Hawk <ethan.hawk@valpo.edu>
 ;; Maintainer: Ethan Hawk <ethan.hawk@valpo.edu>
@@ -8,7 +9,6 @@
 ;; Keywords: algorithm, tools
 ;; Package-Requires: ((emacs "28.1"))
 ;; Version: 1.0.0
-;; License: MIT
 
 ;; This file is not part of GNU Emacs.
 

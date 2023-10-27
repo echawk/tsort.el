@@ -7,7 +7,7 @@
 ;; Maintainer: Ethan Hawk <ethan.hawk@valpo.edu>
 ;; URL: https://github.com/ehawkvu/tsort.el
 ;; Keywords: algorithm, tools
-;; Package-Requires: ((emacs "28.1"))
+;; Package-Requires: ((emacs "24.4") (compat "29.1.4.2"))
 ;; Version: 1.0.0
 
 ;; This file is not part of GNU Emacs.
@@ -25,21 +25,23 @@
 ;;; Code:
 
 (eval-when-compile
-  (require 'seq)
+  (require 'cl-lib)
+  (require 'compat)
   (require 'subr-x))
 
 (defun tsort--rm-vertex-from-graph (v G)
   "Remove vertex V from graph G including all edges which contain vertex V."
   (declare (pure t) (side-effect-free t))
-  (mapcar
-   (lambda (pair) (list (car pair) (remove (car v) (cadr pair))))
-   (remove v G)))
+  (cl-loop for pair in (remove v G)
+           collect (list (car pair) (remove (car v) (cadr pair)))))
 
 (defun tsort--find-degree-zero-vertex (G)
   "Return return the first vertex in G that has a degree of nil (zero)."
   (declare (pure t) (side-effect-free t))
-  (car (seq-filter (lambda (pair) (equal (cadr pair) nil)) G)))
-
+  (car
+   (cl-loop for pair in G
+            if (equal (cadr pair) nil)
+            collect pair)))
 
 ;;;###autoload
 (defun tsort (G)

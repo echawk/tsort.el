@@ -62,11 +62,9 @@ This graph will turn into the following topological sort: \\='(D B C A)"
   (declare (pure t) (side-effect-free t))
   (let ((res
          (named-let tsort-impl ((graph G) (seen '()))
-           "Recursive implementation of topological sort using Kahn's algorithm.
-
-GRAPH is a collection of vertices and their edges and SEEN is the
-eventual ordering of elements."
-
+           ;; Recursive implementation of topological sort using Kahn's algorithm.
+           ;; GRAPH is a collection of vertices and their edges
+           ;; SEEN is the eventual ordering of elements.
            (let ((vertex (tsort--find-degree-zero-vertex graph)))
              (if vertex
                  (tsort-impl (tsort--rm-vertex-from-graph vertex graph)

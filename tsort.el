@@ -38,10 +38,9 @@
 (defun tsort--find-degree-zero-vertex (G)
   "Return return the first vertex in G that has a degree of nil (zero)."
   (declare (pure t) (side-effect-free t))
-  (car
-   (cl-loop for pair in G
-            if (equal (cadr pair) nil)
-            collect pair)))
+  (cl-loop for pair in G
+           if (equal (cadr pair) nil)
+           return pair))
 
 ;;;###autoload
 (defun tsort (G)
